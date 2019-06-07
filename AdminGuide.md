@@ -10,7 +10,7 @@
     - `reload` – Reload the configuration file
     - `reopen` – Reopen log files
     - `stop` – Shut down immediately (fast shutdown)
-# Create a site for serving static contain:
+# Create a site for serving static content:
 Below is an example to create a `foo` site listen on port number 8000.
 - Create configuration file `"/etc/nginx/sites-available/foo"`
     - `sudo echo | sudo tee -a /etc/nginx/sites-available/foo`
@@ -31,3 +31,4 @@ Below is an example to create a `foo` site listen on port number 8000.
 - Create index file of site
     - `sudo echo 'Hello Foo' | sudo tee -a /usr/share/foo/html/index.html`
 - Verify that site is up and running: `curl -I 127.0.0.1:8000`
+# Setting Up a Simple Proxy Server
