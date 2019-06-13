@@ -30,5 +30,25 @@ Below is an example to create a `foo` site listen on port number 8000.
     - `ln -s /etc/nginx/sites-available/foo /etc/nginx/sites-enabled/foo`
 - Create index file of site
     - `sudo echo 'Hello Foo' | sudo tee -a /usr/share/foo/html/index.html`
+- Reload nginx: `sudo nginx -s reload`
 - Verify that site is up and running: `curl -I 127.0.0.1:8000`
 # Setting Up a Simple Proxy Server
+- Create configuration file `"/etc/nginx/sites-available/proxy"`
+    - `sudo echo | sudo tee -a /etc/nginx/sites-available/proxy`
+    - Content of `foo` file:
+        ```
+        server {
+            listen 8001;
+            location /vnx {
+                proxy_pass https://vnexpress.net/;
+            }
+            location /goo {
+                proxy_pass https://google.com/;
+            }
+        }
+        ```
+- To enable above proxy configuration file, create a link to `proxy` file under `/etc/nginx/sites-enabled`
+    - `ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled/proxy`
+- Reload nginx: `sudo nginx -s reload`
+- Verify that site is up and running: `curl -I 127.0.0.1:8001/vnx`, `curl -I 127.0.0.1:8001/goo`
+
