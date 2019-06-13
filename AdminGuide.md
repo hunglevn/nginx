@@ -32,7 +32,13 @@ Below is an example to create a `foo` site listen on port number 8000.
 - Reload nginx: `sudo nginx -s reload`
 - Verify that site is up and running: `curl -I 127.0.0.1:8000`
 # Setting Up a Simple Proxy Server
-For passing a request to an HTTP proxied server, the proxy_pass directive is specified inside a location. Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
+For passing a request to an HTTP proxied server, the proxy_pass directive is specified inside a location. Beside HTTP, Nginx also support these non-HTTP proxied server:
+- `fastcgi_pass` passes a request to a FastCGI server
+- `uwsgi_pass` passes a request to a uwsgi server
+- `scgi_pass` passes a request to an SCGI server
+- `memcached_pass` passes a request to a memcached server
+
+Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
 - Create configuration file `"/etc/nginx/sites-available/proxy"`
     - Content of `proxy` file:
         ```
@@ -50,4 +56,6 @@ For passing a request to an HTTP proxied server, the proxy_pass directive is spe
     - `ln -s /etc/nginx/sites-available/proxy /etc/nginx/sites-enabled/proxy`
 - Reload nginx: `sudo nginx -s reload`
 - Verify that site is up and running: `curl -I 127.0.0.1:8001/vnx`, `curl -I 127.0.0.1:8001/goo`
+
+
 
