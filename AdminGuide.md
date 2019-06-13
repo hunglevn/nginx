@@ -13,7 +13,6 @@
 # Create a site for serving static content:
 Below is an example to create a `foo` site listen on port number 8000.
 - Create configuration file `"/etc/nginx/sites-available/foo"`
-    - `sudo echo | sudo tee -a /etc/nginx/sites-available/foo`
     - Content of `foo` file:
         ```
         server {
@@ -35,8 +34,7 @@ Below is an example to create a `foo` site listen on port number 8000.
 # Setting Up a Simple Proxy Server
 For passing a request to an HTTP proxied server, the proxy_pass directive is specified inside a location. Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
 - Create configuration file `"/etc/nginx/sites-available/proxy"`
-    - `sudo echo | sudo tee -a /etc/nginx/sites-available/proxy`
-    - Content of `foo` file:
+    - Content of `proxy` file:
         ```
         server {
             listen 8001;
