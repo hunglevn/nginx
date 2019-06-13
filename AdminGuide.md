@@ -33,6 +33,7 @@ Below is an example to create a `foo` site listen on port number 8000.
 - Reload nginx: `sudo nginx -s reload`
 - Verify that site is up and running: `curl -I 127.0.0.1:8000`
 # Setting Up a Simple Proxy Server
+For passing a request to an HTTP proxied server, the proxy_pass directive is specified inside a location. Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
 - Create configuration file `"/etc/nginx/sites-available/proxy"`
     - `sudo echo | sudo tee -a /etc/nginx/sites-available/proxy`
     - Content of `foo` file:
