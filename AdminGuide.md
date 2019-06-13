@@ -37,8 +37,45 @@ For passing a request to an HTTP proxied server, the proxy_pass directive is spe
 - `uwsgi_pass` passes a request to a uwsgi server
 - `scgi_pass` passes a request to an SCGI server
 - `memcached_pass` passes a request to a memcached server
+## To pass a request to an HTTP proxied server, the proxy_pass directive is specified inside a location
+```
+location /some/path/ {
+    proxy_pass http://www.example.com/link/;
+}
+```
+## To modiy header fields, use the `proxy_set_header` directive:
+```
+location /some/path/ {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_pass http://localhost:8000;
+}
+```
+## Configuring Buffers
+By default NGINX buffers responses from proxied servers. A response is stored in the internal buffers and is not sent to the client until the whole response is received.
+The directive that is responsible for enabling and disabling buffering is `proxy_buffering`. By default it is set to `on` and buffering is enabled. To disable buffering, change value of `proxy_buffering` to `off`
+```
+location /some/path/ {
+    proxy_buffering on;
+    proxy_buffers 16 4k;
+    proxy_buffer_size 2k;
+    proxy_pass http://localhost:8000;
+}
+```
+## Choosing an Outgoing IP Address
+If proxy server has several network interfaces, we could choose a particular source IP address for connecting to a proxied server or an upstream.
+```
+location /app1/ {
+    proxy_bind 127.0.0.1;
+    proxy_pass http://example.com/app1/;
+}
 
-Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
+location /app2/ {
+    proxy_bind 127.0.0.2;
+    proxy_pass http://example.com/app2/;
+}
+```
+## Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
 - Create configuration file `"/etc/nginx/sites-available/proxy"`
     - Content of `proxy` file:
         ```
