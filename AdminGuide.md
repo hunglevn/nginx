@@ -75,7 +75,7 @@ location /app2/ {
     proxy_pass http://example.com/app2/;
 }
 ```
-## Below example proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
+## Example to proxy `/vnx` and `/goo` requests to an `vnexpress.net` and `google.com` servers.
 - Create configuration file `"/etc/nginx/sites-available/proxy"`
     - Content of `proxy` file:
         ```
