@@ -3,7 +3,7 @@
 - `sudo apt-get install nginx`
 - Verify installation `sudo nginx -v`
 - Start NGINX: `sudo nginx`
-- Verify that NGINX is up and running: `curl -I 127.0.0.1`
+- Verify that NGINX is up and running: `service nginx status`
 # Controlling NGINX
 - `nginx -s <SIGNAL>`. Where `<SIGNAL>` can be one of the following:
     - `quit` – Shut down gracefully
@@ -94,5 +94,26 @@ location /app2/ {
 - Reload nginx: `sudo nginx -s reload`
 - Verify that site is up and running: `curl -I 127.0.0.1:8001/vnx`, `curl -I 127.0.0.1:8001/goo`
 
+# Setting up HTTP load balancer
+```
+http {
+    upstream myapp1 {
+        [Load balancing method];
+        server srv1.example.com;
+        server srv2.example.com;
+        server srv3.example.com;
+    }
 
+    server {
+        listen 80;
 
+        location / {
+            proxy_pass http://myapp1;
+        }
+    }
+}
+```
+If [Load balancing method] is not defined, "round robin" method is used. Load balancing has 3 methods:
+- round_robin (default)
+- ip_hash
+- least_conn
