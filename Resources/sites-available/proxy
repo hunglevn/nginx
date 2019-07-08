@@ -1,0 +1,14 @@
+        server {
+            listen 8001;
+            location /vnx {
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_buffering on;
+                proxy_buffers 16 4k;
+                proxy_buffer_size 2k;
+                proxy_pass https://vnexpress.net/;
+            }
+            location /goo {
+                proxy_pass https://google.com/;
+            }
+        }

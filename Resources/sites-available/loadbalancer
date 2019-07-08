@@ -1,0 +1,12 @@
+    upstream balancer1 {
+	ip_hash;
+       server localhost:8000;
+       server localhost:8001;
+    }
+
+    server {
+        listen 8002;
+        location / {
+            proxy_pass http://balancer1;
+        }
+    }
