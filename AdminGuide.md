@@ -96,7 +96,6 @@ location /app2/ {
 
 # Setting up HTTP load balancer
 ```
-http {
     upstream myapp1 {
         [Load balancing method];
         server srv1.example.com;
@@ -106,12 +105,10 @@ http {
 
     server {
         listen 80;
-
         location / {
             proxy_pass http://myapp1;
         }
     }
-}
 ```
 If [Load balancing method] is not defined, "round robin" method is used. Load balancing has 3 methods:
 - round_robin (default)
